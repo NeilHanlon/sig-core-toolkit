@@ -56,9 +56,9 @@ RUN rm -rf /etc/yum.repos.d/*.repo
 RUN useradd -o -d /var/peridot -u 1002 peridotbuilder && usermod -a -G mock peridotbuilder
 RUN chown peridotbuilder:mock /etc/yum.conf && chown -R peridotbuilder:mock /etc/dnf && chown -R peridotbuilder:mock /etc/rpm && chown -R peridotbuilder:mock /etc/yum.repos.d
 
-COPY . /app/
-# RUN pip install 'git+https://git.rockylinux.org/release-engineering/public/toolkit.git@devel#egg=empanadas&subdirectory=iso/empanadas'
-RUN pip install /app/
+RUN pip install 'git+https://git.rockylinux.org/release-engineering/public/toolkit.git@feature/iso-kube#egg=empanadas&subdirectory=iso/empanadas'
+# COPY . /app/
+# RUN pip install /app/
 
 ENV USER=1002
 USER 1002
