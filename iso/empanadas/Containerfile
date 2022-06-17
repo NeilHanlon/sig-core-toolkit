@@ -41,8 +41,14 @@ RUN dnf update -y && dnf install -y \
     rpm-sign \
     sudo \
     mock \
+    python-pip \
+    genisoimage \
+    isomd5sum \
     lorax \
-    python-pip
+    lorax-templates-rhel \
+    lorax-templates-generic
+
+RUN sed -i '/libreport-rhel-anaconda-bugzilla/ s/^/#/' /usr/share/lorax/templates.d/80-rhel/runtime-install.tmpl
 
 RUN ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
 RUN dnf clean all
