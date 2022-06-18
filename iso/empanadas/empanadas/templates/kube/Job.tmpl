@@ -11,9 +11,6 @@ spec:
       - name: {{ containerName }}
         image: {{ imageName }} 
         command: {{ command }}
-        securityContext:
-          runAsUser: 1002
-          privileged: true
         lifecycle:
           preStop:
             exec:
@@ -23,8 +20,14 @@ spec:
                 "--src",
                 "/mnt/compose/9/latest-Rocky-9/",
                 "--dst",
-                "s3://resf-empanadas/{{ containerName }}/"
+                "s3://resf-empanadas/{{ containerName }}/$(date +%s)/"
               ]
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          privileged: true
+          runAsNonRoot: false
+          allowPrivilegeEscalation: true
         env:
         - name: AWS_REGION
           value: us-east-2
