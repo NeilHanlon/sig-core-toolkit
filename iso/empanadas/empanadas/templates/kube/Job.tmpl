@@ -1,0 +1,24 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ jobName }}
+  namespace: {{ namespace }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: {{ containerName }}
+        image: {{ imageName }} 
+        command: {{ command }}
+        securityContext:
+          runAsUser: 1002
+          privileged: true
+      restartPolicy: {{ restartPolicy }}
+      tolerations:
+      - effect: NoSchedule
+        key: peridot.rockylinux.org/workflow-tolerates-arch
+        operator: Equal
+        value: {{ architecture }}
+  backoffLimit: {{ backoffLimit }}
+
