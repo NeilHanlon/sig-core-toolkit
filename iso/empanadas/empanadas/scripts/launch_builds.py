@@ -39,6 +39,7 @@ def run():
             imageName="ghcr.io/neilhanlon/sig-core-toolkit:latest",
             jobName=f"build-iso-{arch}",
             namespace="empanadas",
+            major=major,
             restartPolicy="Never",
         )
 

@@ -18,9 +18,11 @@ spec:
                 "skbn",
                 "cp",
                 "--src",
-                "/mnt/compose/9/latest-Rocky-9/",
+                "/var/lib/mock/rocky-{{ major }}-{{ architecture }}/root/builddir/lorax-*`",
                 "--dst",
-                "s3://resf-empanadas/{{ containerName }}/$(date +%s)/"
+                "s3://resf-empanadas/{{ containerName }}/$(date +%s)/",
+                "--parallel",
+                "2"
               ]
         securityContext:
           runAsUser: 0
@@ -41,11 +43,11 @@ spec:
             secretKeyRef:
               name: empanadas-s3
               key: SECRET
-      restartPolicy: {{ restartPolicy }}
       tolerations:
       - effect: NoSchedule
         key: peridot.rockylinux.org/workflow-tolerates-arch
         operator: Equal
         value: {{ architecture }}
+      restartPolicy: {{ restartPolicy }}
   backoffLimit: {{ backoffLimit }}
 
